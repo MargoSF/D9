@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import datetime
 from django.core.validators import MinValueValidator
+from django.core.cache import cache
 
 
 class Author(models.Model):
@@ -41,11 +43,11 @@ class Category(models.Model):
         return self.category_name
 
 class Post(models.Model):
-    news = 'news'
+    posts = 'posts'
     articles = 'articles'
 
     CHOICES = [
-        (news, 'Новости'),
+        (posts, 'Новости'),
         (articles, 'Статьи')
     ]
 
@@ -78,7 +80,8 @@ class Post(models.Model):
         return f'{self.text[:124]}...'
 
     def get_absolute_url(self):
-        return reverse('post_detail', args=[str(self.id)])
+        return f'/posts/{self.id}'
+        #return reverse('PostDetail', args=[str(self.id)])
 
 
 class PostCategory(models.Model):
