@@ -9,6 +9,7 @@ from .forms import PostForm
 from .models import Post
 from .filters import PostFilter
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.http import HttpResponse
 
 
 class PostsList(ListView):
@@ -90,4 +91,6 @@ class PostDelete(DeleteView):
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts')       
 
+def index(request):
+    return HttpResponse("Вы на главной странице приложения NewsPaper!")
          
